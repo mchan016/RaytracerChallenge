@@ -31,6 +31,15 @@ namespace Raytracer
         TupleType type() const;
     };
 
+    ////////////////////////////////////
+    // FACTORY FUNCTIONS
+    ////////////////////////////////////
+    std::unique_ptr<Tuple> point(double x, double y, double z);
+    std::unique_ptr<Tuple> vector(double x, double y, double z);
+
+    ////////////////////////////////////
+    // OPERATOR OVERLOADS
+    ////////////////////////////////////
     inline bool operator==(const Tuple& lhs, const Tuple& rhs)
     {
         return doubleEqual(lhs.x(), rhs.x())
@@ -39,11 +48,50 @@ namespace Raytracer
             && lhs.type() == rhs.type();
     }
 
-    ////////////////////////////////////
-    // FACTORY FUNCTIONS
-    ////////////////////////////////////
-    std::unique_ptr<Tuple> point(double x, double y, double z);
-    std::unique_ptr<Tuple> vector(double x, double y, double z);
+    /**
+     * @brief Addition operator overload for adding two tuples together.  The tuples
+     *        can only be either "vector + vector" or "vector + point"
+     * 
+     * @param lhs 
+     * @param rhs 
+     * @return std::unique_ptr<Tuple> - Returns a nullptr if the tuples could not
+     *                                  be added together
+     */
+    inline std::unique_ptr<Tuple> operator+(const Tuple& lhs, const Tuple& rhs)
+    {
+        // When both tuples are vectors
+        if (lhs.type() == TupleType::VECTOR && rhs.type() == TupleType::VECTOR)
+        {
+            return vector(lhs.x() + rhs.x(), lhs.y() + rhs.y(), lhs.z() + rhs.z());
+        }
+        else if (
+            (lhs.type() == TupleType::POINT && rhs.type() == TupleType::VECTOR) || 
+            (lhs.type() == TupleType::VECTOR && rhs.type() == TupleType::POINT)
+        )
+        {
+            return point(lhs.x() + rhs.x(), lhs.y() + rhs.y(), lhs.z() + rhs.z());
+        }
+
+        return nullptr;
+    }
+
+    inline std::unique_ptr<Tuple> operator-(const Tuple& lhs, const Tuple& rhs)
+    {
+        if (lhs.type() == TupleType::POINT && rhs.type() == TupleType::POINT)
+        {
+            return vector(lhs.x() - rhs.x(), lhs.y() - rhs.y(), lhs.z() - rhs.z());
+        }
+        else if (lhs.type() == TupleType::POINT && rhs.type() == TupleType::VECTOR)
+        {
+            return point(lhs.x() - rhs.x(), lhs.y() - rhs.y(), lhs.z() - rhs.z());
+        }
+        else if (lhs.type() == TupleType::VECTOR && rhs.type() == TupleType::VECTOR)
+        {
+            return vector(lhs.x() - rhs.x(), lhs.y() - rhs.y(), lhs.z() - rhs.z());
+        }
+
+        return nullptr;
+    }
 }
 
 #endif // RAYTRACER_TUPLE_H
