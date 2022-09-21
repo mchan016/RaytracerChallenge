@@ -24,12 +24,12 @@ TEST(TupleTest, vectorTest)
 
 TEST(TupleTest, createPointTest)
 {
-    Raytracer::Tuple* t1 = Raytracer::point(4, -4, 3);
+    std::unique_ptr<Raytracer::Tuple> t1 = Raytracer::point(4, -4, 3);
     EXPECT_TRUE((*t1 == Raytracer::Tuple{4, -4, 3, Raytracer::TupleType::POINT}));
 }
 
 TEST(TupleTest, createVectorTest)
 {
-    Raytracer::Tuple* t1 = Raytracer::vector(4, -4, 3);
+    std::unique_ptr<Raytracer::Tuple> t1 = Raytracer::vector(4, -4, 3);
     EXPECT_TRUE((*t1 == Raytracer::Tuple{4, -4, 3, Raytracer::TupleType::VECTOR}));
 }

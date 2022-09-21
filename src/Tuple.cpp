@@ -1,5 +1,7 @@
 #include "Tuple.h"
 
+#include <memory>
+
 Raytracer::Tuple::Tuple(double x, double y, double z, TupleType type)
     : m_x{x}, m_y{y}, m_z{z}, m_type{type}
 {}
@@ -24,12 +26,12 @@ Raytracer::TupleType Raytracer::Tuple::type() const
     return m_type;
 }
 
-Raytracer::Tuple* Raytracer::point(double x, double y, double z)
+std::unique_ptr<Raytracer::Tuple> Raytracer::point(double x, double y, double z)
 {
-    return new Tuple(x, y, z, Raytracer::TupleType::POINT);
+    return std::make_unique<Raytracer::Tuple>(x, y, z, Raytracer::TupleType::POINT);
 }
 
-Raytracer::Tuple* Raytracer::vector(double x, double y, double z)
+std::unique_ptr<Raytracer::Tuple> Raytracer::vector(double x, double y, double z)
 {
-    return new Tuple(x, y, z, Raytracer::TupleType::VECTOR);
+    return std::make_unique<Raytracer::Tuple>(x, y, z, Raytracer::TupleType::VECTOR);
 }

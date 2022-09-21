@@ -3,6 +3,8 @@
 
 #include "RaytracerUtils.h"
 
+#include <memory>
+
 namespace Raytracer
 {
     enum class TupleType
@@ -40,8 +42,8 @@ namespace Raytracer
     ////////////////////////////////////
     // FACTORY FUNCTIONS
     ////////////////////////////////////
-    Tuple* point(double x, double y, double z);
-    Tuple* vector(double x, double y, double z);
+    std::unique_ptr<Tuple> point(double x, double y, double z);
+    std::unique_ptr<Tuple> vector(double x, double y, double z);
 }
 
 #endif // RAYTRACER_TUPLE_H
