@@ -29,6 +29,13 @@ namespace Raytracer
         double y() const;
         double z() const;
         TupleType type() const;
+
+        std::unique_ptr<Tuple> operator-() const;
+        std::unique_ptr<Tuple> operator*(const double multiplier) const;
+        std::unique_ptr<Tuple> operator/(const double divisor) const;
+
+        double magnitude() const;
+        std::unique_ptr<Tuple> normalize() const;
     };
 
     ////////////////////////////////////
@@ -91,6 +98,11 @@ namespace Raytracer
         }
 
         return nullptr;
+    }
+
+    inline std::unique_ptr<Tuple> operator*(const double multiplier, const Tuple& rhs)
+    {
+        return rhs * multiplier;
     }
 }
 

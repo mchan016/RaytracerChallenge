@@ -1,6 +1,7 @@
 #include "Tuple.h"
 
 #include <memory>
+#include <cmath>
 
 Raytracer::Tuple::Tuple(double x, double y, double z, TupleType type)
     : m_x{x}, m_y{y}, m_z{z}, m_type{type}
@@ -34,4 +35,33 @@ std::unique_ptr<Raytracer::Tuple> Raytracer::point(double x, double y, double z)
 std::unique_ptr<Raytracer::Tuple> Raytracer::vector(double x, double y, double z)
 {
     return std::make_unique<Raytracer::Tuple>(x, y, z, Raytracer::TupleType::VECTOR);
+}
+
+std::unique_ptr<Raytracer::Tuple> Raytracer::Tuple::operator-() const
+{
+    return std::make_unique<Tuple>(-m_x, -m_y, -m_z, m_type);
+}
+
+std::unique_ptr<Raytracer::Tuple> Raytracer::Tuple::operator*(const double multiplier) const
+{
+    return std::make_unique<Tuple>(m_x*multiplier, m_y*multiplier, m_z* multiplier, m_type);
+}
+
+std::unique_ptr<Raytracer::Tuple> Raytracer::Tuple::operator/(const double divisor) const
+{
+    return std::make_unique<Tuple>(m_x/divisor, m_y/divisor, m_z/divisor, m_type);
+}
+
+double Raytracer::Tuple::magnitude() const
+{
+    return std::sqrt(m_x*m_x + m_y*m_y + m_z*m_z);
+}
+
+std::unique_ptr<Raytracer::Tuple> Raytracer::Tuple::normalize() const
+{
+    double mag = magnitude();
+
+    return doubleEqual(mag, 0.0)
+        ? nullptr
+        : std::make_unique<Tuple>(m_x/mag, m_y/mag, m_z/mag, m_type);
 }
