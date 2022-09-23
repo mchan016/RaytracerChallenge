@@ -65,3 +65,19 @@ std::unique_ptr<Raytracer::Tuple> Raytracer::Tuple::normalize() const
         ? nullptr
         : std::make_unique<Tuple>(m_x/mag, m_y/mag, m_z/mag, m_type);
 }
+
+double Raytracer::dot(const Tuple& t1, const Tuple& t2)
+{
+    return t1.x() * t2.x()
+         + t1.y() * t2.y()
+         + t1.z() * t2.z();
+}
+
+std::unique_ptr<Raytracer::Tuple> Raytracer::cross(const Raytracer::Tuple& t1, const Raytracer::Tuple& t2)
+{
+    return vector(
+        t1.y() * t2.z() - t1.z() * t2.y(),
+        t1.z() * t2.x() - t1.x() * t2.z(),
+        t1.x() * t2.y() - t1.y() * t2.x()
+    );
+}

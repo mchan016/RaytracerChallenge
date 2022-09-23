@@ -104,6 +104,12 @@ namespace Raytracer
     {
         return rhs * multiplier;
     }
+
+    ////////////////////////////////////
+    // RELATED OPERATIONS
+    ////////////////////////////////////
+    double dot(const Tuple& t1, const Tuple& t2);
+    std::unique_ptr<Tuple> cross(const Tuple& t1, const Tuple& t2);
 }
 
 #endif // RAYTRACER_TUPLE_H

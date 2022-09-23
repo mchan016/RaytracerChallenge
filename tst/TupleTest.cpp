@@ -109,3 +109,20 @@ TEST(TupleTest, normalizeTupleTest)
     EXPECT_TRUE((*t2.normalize() == Raytracer::Tuple{0.26726, 0.53452, 0.80178, Raytracer::TupleType::VECTOR}));
     EXPECT_TRUE(Raytracer::doubleEqual(t2.normalize()->magnitude(), 1));
 }
+
+TEST(TupleTest, dotProductTest)
+{
+    Raytracer::Tuple t1{1, 2, 3, Raytracer::TupleType::VECTOR};
+    Raytracer::Tuple t2{2, 3, 4, Raytracer::TupleType::VECTOR};
+
+    EXPECT_TRUE(Raytracer::doubleEqual(Raytracer::dot(t1, t2), 20));
+}
+
+TEST(TupleTest, crossProductTest)
+{
+    Raytracer::Tuple t1{1, 2, 3, Raytracer::TupleType::VECTOR};
+    Raytracer::Tuple t2{2, 3, 4, Raytracer::TupleType::VECTOR};
+
+    EXPECT_TRUE(((*Raytracer::cross(t1, t2) == Raytracer::Tuple{-1, 2, -1, Raytracer::TupleType::VECTOR})));
+    EXPECT_TRUE(((*Raytracer::cross(t2, t1) == Raytracer::Tuple{1, -2, 1, Raytracer::TupleType::VECTOR})));
+}
