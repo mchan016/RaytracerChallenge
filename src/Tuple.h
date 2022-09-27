@@ -132,6 +132,6 @@ namespace raytracer
     ////////////////////////////////////
     double dot(const Tuple& t1, const Tuple& t2);
     std::unique_ptr<Tuple> cross(const Tuple& t1, const Tuple& t2);
-}
+} // namespace raytracer
 
 #endif // RAYTRACER_TUPLE_H
