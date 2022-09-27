@@ -5,7 +5,7 @@
 
 #include <memory>
 
-namespace Raytracer
+namespace raytracer
 {
     enum class TupleType
     {

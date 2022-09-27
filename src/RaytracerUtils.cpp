@@ -2,7 +2,7 @@
 
 #include <cmath>
 
-bool Raytracer::doubleEqual(double a, double b)
+bool raytracer::doubleEqual(double a, double b)
 {
-    return std::abs(a - b) < Raytracer::EPSILON;
+    return std::abs(a - b) < raytracer::EPSILON;
 }

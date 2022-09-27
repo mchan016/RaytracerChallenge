@@ -1,7 +1,7 @@
 #ifndef RAYTRACER_UTILS_H
 #define RAYTRACER_UTILS_H
 
-namespace Raytracer
+namespace raytracer
 {
     constexpr double EPSILON = 0.00001;
     
