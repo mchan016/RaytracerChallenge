@@ -10,7 +10,8 @@ namespace Raytracer
     enum class TupleType
     {
         POINT,
-        VECTOR
+        VECTOR,
+        COLOR
     };
 
     class Tuple
@@ -43,6 +44,7 @@ namespace Raytracer
     ////////////////////////////////////
     std::unique_ptr<Tuple> point(double x, double y, double z);
     std::unique_ptr<Tuple> vector(double x, double y, double z);
+    std::unique_ptr<Tuple> color(double x, double y, double z);
 
     ////////////////////////////////////
     // OPERATOR OVERLOADS
@@ -57,7 +59,7 @@ namespace Raytracer
 
     /**
      * @brief Addition operator overload for adding two tuples together.  The tuples
-     *        can only be either "vector + vector" or "vector + point"
+     *        can only be either "vector + vector" or "vector + point" or "color + color"
      * 
      * @param lhs 
      * @param rhs 
@@ -66,17 +68,26 @@ namespace Raytracer
      */
     inline std::unique_ptr<Tuple> operator+(const Tuple& lhs, const Tuple& rhs)
     {
-        // When both tuples are vectors
-        if (lhs.type() == TupleType::VECTOR && rhs.type() == TupleType::VECTOR)
+        auto lhsType = lhs.type();
+        auto rhsType = rhs.type();
+        auto x = lhs.x() + rhs.x();
+        auto y = lhs.y() + rhs.y();
+        auto z = lhs.z() + rhs.z();
+
+        if (lhsType == TupleType::VECTOR && rhsType == TupleType::VECTOR)
         {
-            return vector(lhs.x() + rhs.x(), lhs.y() + rhs.y(), lhs.z() + rhs.z());
+            return vector(x, y, z);
         }
         else if (
-            (lhs.type() == TupleType::POINT && rhs.type() == TupleType::VECTOR) || 
-            (lhs.type() == TupleType::VECTOR && rhs.type() == TupleType::POINT)
+            (lhsType == TupleType::POINT && rhsType == TupleType::VECTOR) || 
+            (lhsType == TupleType::VECTOR && rhsType == TupleType::POINT)
         )
         {
-            return point(lhs.x() + rhs.x(), lhs.y() + rhs.y(), lhs.z() + rhs.z());
+            return point(x, y, z);
+        }
+        else if (lhsType == TupleType::COLOR && rhsType == TupleType::COLOR)
+        {
+            return color(x, y, z);
         }
 
         return nullptr;
@@ -84,17 +95,27 @@ namespace Raytracer
 
     inline std::unique_ptr<Tuple> operator-(const Tuple& lhs, const Tuple& rhs)
     {
-        if (lhs.type() == TupleType::POINT && rhs.type() == TupleType::POINT)
+        auto lhsType = lhs.type();
+        auto rhsType = rhs.type();
+        auto x = lhs.x() - rhs.x();
+        auto y = lhs.y() - rhs.y();
+        auto z = lhs.z() - rhs.z();
+
+        if (lhsType== TupleType::POINT && rhsType == TupleType::POINT)
         {
-            return vector(lhs.x() - rhs.x(), lhs.y() - rhs.y(), lhs.z() - rhs.z());
+            return vector(x, y, z);
         }
-        else if (lhs.type() == TupleType::POINT && rhs.type() == TupleType::VECTOR)
+        else if (lhsType == TupleType::POINT && rhsType == TupleType::VECTOR)
         {
-            return point(lhs.x() - rhs.x(), lhs.y() - rhs.y(), lhs.z() - rhs.z());
+            return point(x, y, z);
         }
-        else if (lhs.type() == TupleType::VECTOR && rhs.type() == TupleType::VECTOR)
+        else if (lhsType == TupleType::VECTOR && rhsType == TupleType::VECTOR)
         {
-            return vector(lhs.x() - rhs.x(), lhs.y() - rhs.y(), lhs.z() - rhs.z());
+            return vector(x, y, z);
+        }
+        else if (lhsType == TupleType::COLOR && rhsType == TupleType::COLOR)
+        {
+            return color(x, y, z);
         }
 
         return nullptr;

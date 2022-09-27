@@ -37,6 +37,11 @@ std::unique_ptr<Raytracer::Tuple> Raytracer::vector(double x, double y, double z
     return std::make_unique<Raytracer::Tuple>(x, y, z, Raytracer::TupleType::VECTOR);
 }
 
+std::unique_ptr<Raytracer::Tuple> Raytracer::color(double x, double y, double z)
+{
+    return std::make_unique<Raytracer::Tuple>(x, y, z, Raytracer::TupleType::COLOR);
+}
+
 std::unique_ptr<Raytracer::Tuple> Raytracer::Tuple::operator-() const
 {
     return std::make_unique<Tuple>(-m_x, -m_y, -m_z, m_type);

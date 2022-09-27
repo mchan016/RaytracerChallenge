@@ -24,6 +24,17 @@ TEST(TupleTest, vectorTest)
     EXPECT_EQ(t1.type(), Raytracer::TupleType::VECTOR);
 }
 
+TEST(TupleTest, colorTest)
+{
+    Raytracer::Tuple t1{-0.5, 0.4, 1.7, Raytracer::TupleType::COLOR};
+    EXPECT_TRUE(Raytracer::doubleEqual(t1.x(), -0.5));
+    EXPECT_TRUE(Raytracer::doubleEqual(t1.y(), 0.4));
+    EXPECT_TRUE(Raytracer::doubleEqual(t1.z(), 1.7));
+    EXPECT_NE(t1.type(), Raytracer::TupleType::POINT);
+    EXPECT_NE(t1.type(), Raytracer::TupleType::VECTOR);
+    EXPECT_EQ(t1.type(), Raytracer::TupleType::COLOR);
+}
+
 TEST(TupleTest, createPointTest)
 {
     std::unique_ptr<Raytracer::Tuple> t1 = Raytracer::point(4, -4, 3);
@@ -36,13 +47,22 @@ TEST(TupleTest, createVectorTest)
     EXPECT_TRUE((*t1 == Raytracer::Tuple{4, -4, 3, Raytracer::TupleType::VECTOR}));
 }
 
+TEST(TupleTest, createColorTest)
+{
+    std::unique_ptr<Raytracer::Tuple> t1 = Raytracer::color(4, -4, 3);
+    EXPECT_TRUE((*t1 == Raytracer::Tuple{4, -4, 3, Raytracer::TupleType::COLOR}));
+}
+
 TEST(TupleTest, addTupleTest)
 {
     Raytracer::Tuple t1{3, -2, 5, Raytracer::TupleType::POINT};
     Raytracer::Tuple t2{-2, 3, 1, Raytracer::TupleType::VECTOR};
+    Raytracer::Tuple t3{0.9, 0.6, 0.75, Raytracer::TupleType::COLOR};
+    Raytracer::Tuple t4{0.7, 0.1, 0.25, Raytracer::TupleType::COLOR};
 
     EXPECT_TRUE((*(t1 + t2) == Raytracer::Tuple{1, 1, 6, Raytracer::TupleType::POINT}));
     EXPECT_TRUE((*(t2 + t2) == Raytracer::Tuple{-4, 6, 2, Raytracer::TupleType::VECTOR}));
+    EXPECT_TRUE((*(t3 + t4) == Raytracer::Tuple{1.6, 0.7, 1.0, Raytracer::TupleType::COLOR}));
     EXPECT_TRUE(((t1 + t1) == nullptr));
 }
 
@@ -52,10 +72,13 @@ TEST(TupleTest, subtractTupleTest)
     Raytracer::Tuple t2{5, 6, 7, Raytracer::TupleType::POINT};
     Raytracer::Tuple t3{5, 6, 7, Raytracer::TupleType::VECTOR};
     Raytracer::Tuple t4{3, 2, 1, Raytracer::TupleType::VECTOR};
+    Raytracer::Tuple t5{0.9, 0.6, 0.75, Raytracer::TupleType::COLOR};
+    Raytracer::Tuple t6{0.7, 0.1, 0.25, Raytracer::TupleType::COLOR};
 
     EXPECT_TRUE((*(t1 - t2) == Raytracer::Tuple{-2, -4, -6, Raytracer::TupleType::VECTOR}));
     EXPECT_TRUE((*(t1 - t3) == Raytracer::Tuple{-2, -4, -6, Raytracer::TupleType::POINT}));
     EXPECT_TRUE((*(t4 - t3) == Raytracer::Tuple{-2, -4, -6, Raytracer::TupleType::VECTOR}));
+    EXPECT_TRUE((*(t5 - t6) == Raytracer::Tuple{0.2, 0.5, 0.5, Raytracer::TupleType::COLOR}));
     EXPECT_TRUE(((t3 - t2) == nullptr));
 }
 
@@ -71,11 +94,15 @@ TEST(TupleTest, negateTupleTest)
 TEST(TupleTest, scalarMultiplicationTest)
 {
     Raytracer::Tuple t1{1, -2, 3, Raytracer::TupleType::VECTOR};
+    Raytracer::Tuple t2{0.2, 0.3, 0.4, Raytracer::TupleType::COLOR};
 
     EXPECT_TRUE((*(t1 * 3.5) == Raytracer::Tuple{3.5, -7, 10.5, Raytracer::TupleType::VECTOR}));
     EXPECT_TRUE((*(t1 * 0.5) == Raytracer::Tuple{0.5, -1, 1.5, Raytracer::TupleType::VECTOR}));
     EXPECT_TRUE((*(3.5 * t1) == Raytracer::Tuple{3.5, -7, 10.5, Raytracer::TupleType::VECTOR}));
     EXPECT_TRUE((*(0.5 * t1) == Raytracer::Tuple{0.5, -1, 1.5, Raytracer::TupleType::VECTOR}));
+
+    EXPECT_TRUE((*(t2 * 2) == Raytracer::Tuple{0.4, 0.6, 0.8, Raytracer::TupleType::COLOR}));
+    EXPECT_TRUE((*(2 * t2) == Raytracer::Tuple{0.4, 0.6, 0.8, Raytracer::TupleType::COLOR}));
 }
 
 TEST(TupleTest, scalarDivisionTest)
