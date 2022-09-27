@@ -105,6 +105,14 @@ TEST(TupleTest, scalarMultiplicationTest)
     EXPECT_TRUE((*(2 * t2) == raytracer::Tuple{0.4, 0.6, 0.8, raytracer::TupleType::COLOR}));
 }
 
+TEST(TupleTest, tupleMultiplicationTest)
+{
+    raytracer::Tuple t1{1, 0.2, 0.4, raytracer::TupleType::COLOR};
+    raytracer::Tuple t2{0.9, 1, 0.1, raytracer::TupleType::COLOR};
+
+    EXPECT_TRUE((*(t1 * t2) == raytracer::Tuple{0.9, 0.2, 0.04, raytracer::TupleType::COLOR}));
+}
+
 TEST(TupleTest, scalarDivisionTest)
 {
     raytracer::Tuple t1{1, -2, 3, raytracer::TupleType::VECTOR};

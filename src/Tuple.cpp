@@ -52,6 +52,11 @@ std::unique_ptr<raytracer::Tuple> raytracer::Tuple::operator*(const double multi
     return std::make_unique<Tuple>(m_x*multiplier, m_y*multiplier, m_z* multiplier, m_type);
 }
 
+std::unique_ptr<raytracer::Tuple> raytracer::Tuple::operator*(const raytracer::Tuple& rhs) const
+{
+    return std::make_unique<Tuple>(this->m_x*rhs.m_x, this->m_y*rhs.m_y, this->m_z*rhs.m_z, this->m_type);
+}
+
 std::unique_ptr<raytracer::Tuple> raytracer::Tuple::operator/(const double divisor) const
 {
     return std::make_unique<Tuple>(m_x/divisor, m_y/divisor, m_z/divisor, m_type);

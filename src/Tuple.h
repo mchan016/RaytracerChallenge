@@ -33,6 +33,7 @@ namespace raytracer
 
         std::unique_ptr<Tuple> operator-() const;
         std::unique_ptr<Tuple> operator*(const double multiplier) const;
+        std::unique_ptr<Tuple> operator*(const Tuple& rhs) const;
         std::unique_ptr<Tuple> operator/(const double divisor) const;
 
         double magnitude() const;
