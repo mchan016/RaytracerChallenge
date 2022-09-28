@@ -4,6 +4,7 @@
 #include "Tuple.h"
 
 #include <vector>
+#include <string>
 
 namespace raytracer
 {
@@ -13,6 +14,8 @@ namespace raytracer
         std::vector<std::vector<Tuple>> m_canvas;
 
     public:
+        static constexpr int COLOR_SCALE = 255;
+
         Canvas();
         Canvas(int width, int height);
 
@@ -20,11 +23,14 @@ namespace raytracer
         int height() const;
         const std::vector<std::vector<Tuple>>& canvas() const;
 
-        const Tuple& pixel(int row, int column) const;
-        bool pixel(int row, int column, const Tuple& color);
+        const Tuple& pixel(int x, int y) const;
+        bool pixel(int x, int y, const Tuple& color);
+        std::string canvasToPPM() const;
 
     private:
-        bool pixelOutOfBounds(int row, int column) const;
+        bool pixelOutOfBounds(int x, int y) const;
+        int clipPixelVal(double pixelVal) const;
+        
     };
 } // namespace raytracer
 
