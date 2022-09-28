@@ -19,6 +19,12 @@ namespace raytracer
         int width() const;
         int height() const;
         const std::vector<std::vector<Tuple>>& canvas() const;
+
+        const Tuple& pixel(int row, int column) const;
+        bool pixel(int row, int column, const Tuple& color);
+
+    private:
+        bool pixelOutOfBounds(int row, int column) const;
     };
 } // namespace raytracer
 
