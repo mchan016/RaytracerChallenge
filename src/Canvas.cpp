@@ -9,7 +9,7 @@ raytracer::Canvas::Canvas()
     : m_canvas{}
 {}
 
-raytracer::Canvas::Canvas(int height, int width)
+raytracer::Canvas::Canvas(int width, int height)
     : m_canvas{}
 {
     for (int i = 0; i < height; i++)
