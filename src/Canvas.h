@@ -26,6 +26,7 @@ namespace raytracer
         const Tuple& pixel(int x, int y) const;
         bool pixel(int x, int y, const Tuple& color);
         std::string canvasToPPM() const;
+        void ppmToFile() const;
 
     private:
         bool pixelOutOfBounds(int x, int y) const;

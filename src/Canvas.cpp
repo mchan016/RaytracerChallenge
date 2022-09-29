@@ -2,6 +2,7 @@
 #include "Tuple.h"
 
 #include <cmath>
+#include <fstream>
 #include <vector>
 #include <stdexcept>
 #include <string>
@@ -77,23 +78,6 @@ bool raytracer::Canvas::pixel(int x, int y, const raytracer::Tuple& color)
     return true;
 }
 
-/**
- * @brief Given a row and column coordinate of a pixel check whether
- * the pixel is out of bounds of the canvas
- * 
- * @param x - The x-coordinate of the canvas.  Corresponds to the column position of the y-th row
- * @param y - The y-coordinate of the canvas.  Corresponds to the row position of the x-th column
- * @return true Pixel is out of bounds
- * @return false Pixel is not out of bounds
- */
-bool raytracer::Canvas::pixelOutOfBounds(int x, int y) const
-{
-    return y >= height() 
-        || y < 0
-        || x >= width()
-        || x < 0;
-}
-
 std::string raytracer::Canvas::canvasToPPM() const
 {
     // Generate Header
@@ -114,6 +98,35 @@ std::string raytracer::Canvas::canvasToPPM() const
     }
 
     return ppm;
+}
+
+/**
+ * @brief Writes out the ppm representation of the current canvas to
+ * a file
+ * 
+ */
+void raytracer::Canvas::ppmToFile() const
+{
+    std::ofstream ppmFile("image.ppm");
+    ppmFile << canvasToPPM();
+    ppmFile.close();
+}
+
+/**
+ * @brief Given a row and column coordinate of a pixel check whether
+ * the pixel is out of bounds of the canvas
+ * 
+ * @param x - The x-coordinate of the canvas.  Corresponds to the column position of the y-th row
+ * @param y - The y-coordinate of the canvas.  Corresponds to the row position of the x-th column
+ * @return true Pixel is out of bounds
+ * @return false Pixel is not out of bounds
+ */
+bool raytracer::Canvas::pixelOutOfBounds(int x, int y) const
+{
+    return y >= height() 
+        || y < 0
+        || x >= width()
+        || x < 0;
 }
 
 int raytracer::Canvas::clipPixelVal(double pixelVal) const
