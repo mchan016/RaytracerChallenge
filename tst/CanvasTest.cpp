@@ -100,3 +100,10 @@ TEST(CanvasTest, canvasToPPMTest)
         answer
     );
 }
+
+TEST(CanvasTest, ppmNewlineEndTest)
+{
+    raytracer::Canvas canvas{5, 3};
+
+    EXPECT_EQ(canvas.canvasToPPM().back(), '\n');
+}
