@@ -20,9 +20,21 @@ Matrix::Matrix(std::vector<std::vector<double>>&& matrix)
     : m_matrix{matrix}
 {}
 
-const std::vector<std::vector<double>>& Matrix::matrix() const
+bool Matrix::empty() const
 {
-    return m_matrix;
+    return m_matrix.empty();
+}
+
+int Matrix::rows() const
+{
+    return m_matrix.size();
+}
+
+int Matrix::columns() const
+{
+    if (m_matrix.empty()) return 0;
+
+    return m_matrix[0].size();
 }
 
 const std::vector<double>& Matrix::operator[](int i) const

@@ -50,3 +50,35 @@ TEST(MatrixTest, multiDimensionMatrixTest)
     EXPECT_EQ(matrix2[1][1], -2);
     EXPECT_EQ(matrix2[2][2], 1);
 }
+
+TEST(MatrixTest, matrixEqualityTest)
+{
+    std::vector<std::vector<double>> sample1{
+        {1, 2, 3, 4},
+        {5, 6, 7, 8},
+        {9, 8, 7, 6},
+        {5, 4, 3, 2}
+    };
+
+    std::vector<std::vector<double>> sample2{
+        {1, 2, 3, 4},
+        {5, 6, 7, 8},
+        {9, 8, 7, 6},
+        {5, 4, 3, 2}
+    };
+
+    std::vector<std::vector<double>> sample3{
+        {2, 3, 4, 5},
+        {6, 7, 8, 9},
+        {8, 7, 6, 5},
+        {4, 3, 2, 1}
+    };
+
+    Matrix matrix1{std::move(sample1)};
+    Matrix matrix2{std::move(sample2)};
+    Matrix matrix3{std::move(sample3)};
+
+    EXPECT_TRUE(matrix1 == matrix2);
+    EXPECT_FALSE(matrix1 != matrix2);
+    EXPECT_TRUE(matrix1 != matrix3);
+}

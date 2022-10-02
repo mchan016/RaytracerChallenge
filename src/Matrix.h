@@ -19,11 +19,39 @@ namespace raytracer
         Matrix(std::vector<std::vector<double>>& matrix);
         Matrix(std::vector<std::vector<double>>&& matrix);
 
-        const std::vector<std::vector<double>>& matrix() const;
+        bool empty() const;
+        int rows() const;
+        int columns() const;
 
         const std::vector<double>& operator[](int i) const;
     }; // Matrix
-    
+
+
+    ////////////////////////////////////
+    // OPERATOR OVERLOADS
+    ////////////////////////////////////
+    inline bool operator==(const Matrix& lhs, const Matrix& rhs)
+    {
+        if (lhs.empty() && rhs.empty()) return true;
+        if (lhs.empty() || rhs.empty()) return false;
+
+        bool isEqual = true;
+        for (int i = 0; i < lhs.rows(); i++)
+        {
+            if (lhs[i] != rhs[i])
+            {
+                isEqual = false;
+                break;
+            }
+        }
+
+        return isEqual;
+    }
+
+    inline bool operator!=(const Matrix& lhs, const Matrix& rhs)
+    {
+        return !(lhs == rhs);
+    }
 } // namespace raytracer
 
 
