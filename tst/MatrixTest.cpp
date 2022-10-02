@@ -7,14 +7,12 @@ using raytracer::Matrix;
 
 TEST(MatrixTest, initMatrixTest)
 {
-    std::vector<std::vector<double>> sample{
+    Matrix matrix{{
         {1, 2, 3, 4},
         {5.5, 6.5, 7.5, 8.5},
         {9, 10, 11, 12},
         {13.5, 14.5, 15.5, 16.5}
-    };
-
-    Matrix matrix{std::move(sample)};
+    }};
     EXPECT_EQ(matrix[0][0], 1);
     EXPECT_EQ(matrix[0][3], 4);
     EXPECT_EQ(matrix[1][0], 5.5);
@@ -27,25 +25,21 @@ TEST(MatrixTest, initMatrixTest)
 TEST(MatrixTest, multiDimensionMatrixTest)
 {
     // Verify can create matrix of 2x2
-    std::vector<std::vector<double>> sample1{
+    Matrix matrix1{{
         {-3, 5},
         {1, -2}
-    };
-
-    Matrix matrix1{std::move(sample1)};
+    }};
     EXPECT_EQ(matrix1[0][0], -3);
     EXPECT_EQ(matrix1[0][1], 5);
     EXPECT_EQ(matrix1[1][0], 1);
     EXPECT_EQ(matrix1[1][1], -2);
 
     // Verify can create matrix of 3x3
-    std::vector<std::vector<double>> sample2{
+    Matrix matrix2{{
         {-3, 5, 0},
         {1, -2, -7},
         {0, 1, 1}
-    };
-
-    Matrix matrix2{std::move(sample2)};
+    }};
     EXPECT_EQ(matrix2[0][0], -3);
     EXPECT_EQ(matrix2[1][1], -2);
     EXPECT_EQ(matrix2[2][2], 1);
@@ -53,32 +47,54 @@ TEST(MatrixTest, multiDimensionMatrixTest)
 
 TEST(MatrixTest, matrixEqualityTest)
 {
-    std::vector<std::vector<double>> sample1{
+    Matrix matrix1{{
         {1, 2, 3, 4},
         {5, 6, 7, 8},
         {9, 8, 7, 6},
         {5, 4, 3, 2}
-    };
+    }};
 
-    std::vector<std::vector<double>> sample2{
+    Matrix matrix2{{
         {1, 2, 3, 4},
         {5, 6, 7, 8},
         {9, 8, 7, 6},
         {5, 4, 3, 2}
-    };
+    }};
 
-    std::vector<std::vector<double>> sample3{
+    Matrix matrix3{{
         {2, 3, 4, 5},
         {6, 7, 8, 9},
         {8, 7, 6, 5},
         {4, 3, 2, 1}
-    };
-
-    Matrix matrix1{std::move(sample1)};
-    Matrix matrix2{std::move(sample2)};
-    Matrix matrix3{std::move(sample3)};
+    }};
 
     EXPECT_TRUE(matrix1 == matrix2);
     EXPECT_FALSE(matrix1 != matrix2);
     EXPECT_TRUE(matrix1 != matrix3);
+}
+
+TEST(MatrixTest, matrixMultiplicationTest)
+{
+    Matrix matrix1{{
+        {1, 2, 3, 4},
+        {5, 6, 7, 8},
+        {9, 8, 7, 6},
+        {5, 4, 3, 2}
+    }};
+    Matrix matrix2{{
+        {-2, 1, 2, 3},
+        {3, 2, 1, -1},
+        {4, 3, 6, 5},
+        {1, 2, 7, 8}
+    }};
+
+    Matrix matrix3{{
+        {20, 22, 50, 48},
+        {44, 54, 114, 108},
+        {40, 58, 110, 102},
+        {16, 26, 46, 42}
+    }};
+
+    EXPECT_TRUE(matrix1 * matrix2 == matrix3);
+    EXPECT_FALSE(matrix1 * matrix3 == matrix2);
 }

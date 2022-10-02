@@ -24,6 +24,7 @@ namespace raytracer
         int columns() const;
 
         const std::vector<double>& operator[](int i) const;
+        Matrix operator*(const Matrix& rhs) const;
     }; // Matrix
 
 
