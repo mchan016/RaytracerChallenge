@@ -28,6 +28,7 @@ namespace raytracer
         const std::vector<double>& operator[](int i) const;
         Matrix operator*(const Matrix& rhs) const;
         Tuple operator*(const Tuple& rhs) const;
+        void transpose();
     }; // Matrix
 
 

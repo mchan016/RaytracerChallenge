@@ -101,3 +101,24 @@ raytracer::Tuple Matrix::operator*(const raytracer::Tuple& rhs) const
     TupleType type = static_cast<TupleType>(static_cast<int>(product[3]));
     return Tuple{product[0], product[1], product[2], type};
 }
+
+/**
+ * @brief Transposes the current matrix's rows to columns and columns to rows
+ *          in place.
+ * 
+ * @return true 
+ * @return false 
+ */
+void Matrix::transpose()
+{
+    std::vector<std::vector<double>> copied{m_matrix};
+    
+    // Transpose back to original matrix
+    for (int i = 0; i < copied.size(); i++)
+    {
+        for (int j = 0; j < copied[i].size(); j++)
+        {
+            m_matrix[j][i] = copied[i][j];
+        }
+    }
+}

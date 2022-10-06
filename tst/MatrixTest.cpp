@@ -134,3 +134,37 @@ TEST(MatrixTest, identityMatrixMulitplicationTest)
     EXPECT_TRUE(matrix1 * identityMatrix == matrix1);
     EXPECT_TRUE(identityMatrix * tuple1 == tuple1);
 }
+
+TEST(MatrixTest, matrixTransposeTest)
+{
+    Matrix matrix1{{
+        {0, 9, 3, 0},
+        {9, 8, 0, 8},
+        {1, 8, 5, 3},
+        {0, 0, 5, 8}
+    }};
+    Matrix matrix2{{
+        {0, 9, 1, 0},
+        {9, 8, 8, 0},
+        {3, 0, 5, 5},
+        {0, 8, 3, 8}
+    }};
+
+    Matrix identityMatrix{{
+        {1, 0, 0, 0},
+        {0, 1, 0, 0},
+        {0, 0, 1, 0},
+        {0, 0, 0, 1}
+    }};
+    Matrix identityMatrix2{{
+        {1, 0, 0, 0},
+        {0, 1, 0, 0},
+        {0, 0, 1, 0},
+        {0, 0, 0, 1}
+    }};
+
+    matrix1.transpose();
+    identityMatrix.transpose();
+    EXPECT_TRUE(matrix1 == matrix2);
+    EXPECT_TRUE(identityMatrix == identityMatrix2);
+}
