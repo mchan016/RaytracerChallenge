@@ -1,6 +1,8 @@
 #ifndef RAYTRACER_MATRIX_H
 #define RAYTRACER_MATRIX_H
 
+#include "Tuple.h"
+
 #include <vector>
 
 namespace raytracer
@@ -25,6 +27,7 @@ namespace raytracer
 
         const std::vector<double>& operator[](int i) const;
         Matrix operator*(const Matrix& rhs) const;
+        Tuple operator*(const Tuple& rhs) const;
     }; // Matrix
 
 

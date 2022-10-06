@@ -1,6 +1,8 @@
 #include "Matrix.h"
+#include "Tuple.h"
 
 #include <vector>
+#include <stdexcept>
 
 using raytracer::Matrix;
 
@@ -69,4 +71,33 @@ Matrix Matrix::operator*(const Matrix& rhs) const
     }
 
     return Matrix{product};
+}
+
+/**
+ * @brief Multiplies a 4X4 matrix by a Tuple and returns a Tuple
+ * 
+ * @param rhs 
+ * @throw Throws an invalid argument exception if matrix dimension is not 4X4
+ * @return raytracer::Tuple 
+ */
+raytracer::Tuple Matrix::operator*(const raytracer::Tuple& rhs) const
+{
+    if (rows() != DEFAULT_ROWS || columns() != DEFAULT_COLUMNS)
+    {
+        throw new std::invalid_argument("Matrix is not 4 X 4");
+    }
+
+    std::vector<double> product{};
+    for (int i = 0; i < rows(); i++)
+    {
+        double prod = this->m_matrix[i][0] * rhs.x()
+                    + this->m_matrix[i][1] * rhs.y()
+                    + this->m_matrix[i][2] * rhs.z()
+                    + this->m_matrix[i][3] * static_cast<int>(rhs.type());
+
+        product.push_back(prod);
+    }
+
+    TupleType type = static_cast<TupleType>(static_cast<int>(product[3]));
+    return Tuple{product[0], product[1], product[2], type};
 }

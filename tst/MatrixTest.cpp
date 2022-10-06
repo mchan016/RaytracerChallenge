@@ -1,9 +1,11 @@
 #include "gtest/gtest.h"
 #include "RaytracerUtils.h"
 #include "Matrix.h"
+#include "Tuple.h"
 
 using raytracer::Matrix;
-
+using raytracer::Tuple;
+using raytracer::TupleType;
 
 TEST(MatrixTest, initMatrixTest)
 {
@@ -97,4 +99,38 @@ TEST(MatrixTest, matrixMultiplicationTest)
 
     EXPECT_TRUE(matrix1 * matrix2 == matrix3);
     EXPECT_FALSE(matrix1 * matrix3 == matrix2);
+}
+
+TEST(MatrixTest, matrixTupleMultiplicationTest)
+{
+    Matrix matrix1{{
+        {1, 2, 3, 4},
+        {2, 4, 4, 2},
+        {8, 6, 4, 1},
+        {0, 0, 0, 1}
+    }};
+    Tuple tuple1{1, 2, 3, TupleType::POINT};
+
+    EXPECT_TRUE((matrix1 * tuple1 == Tuple{18, 24, 33, TupleType::POINT}));
+    EXPECT_FALSE((matrix1 * tuple1 == Tuple{18, 24, 33, TupleType::VECTOR}));
+}
+
+TEST(MatrixTest, identityMatrixMulitplicationTest)
+{
+    Matrix matrix1{{
+        {0, 1, 2, 4},
+        {1, 2, 4, 8},
+        {2, 4, 8, 16},
+        {4, 8, 16, 32}
+    }};
+    Tuple tuple1{1, 2, 3, TupleType::VECTOR};
+    Matrix identityMatrix{{
+        {1, 0, 0, 0},
+        {0, 1, 0, 0},
+        {0, 0, 1, 0},
+        {0, 0, 0, 1}
+    }};
+
+    EXPECT_TRUE(matrix1 * identityMatrix == matrix1);
+    EXPECT_TRUE(identityMatrix * tuple1 == tuple1);
 }

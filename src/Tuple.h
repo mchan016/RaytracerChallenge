@@ -9,8 +9,8 @@ namespace raytracer
 {
     enum class TupleType
     {
+        VECTOR = 0,
         POINT,
-        VECTOR,
         COLOR
     };
 
