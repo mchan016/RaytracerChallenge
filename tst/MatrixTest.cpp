@@ -207,3 +207,14 @@ TEST(MatrixTest, matrixSubmatrixTest)
 
     EXPECT_TRUE(matrix2.submatrix(2, 1) == submatrix2);
 }
+
+TEST(MatrixTest, matrixMinorTest)
+{
+    Matrix matrix1{{
+        {3, 5, 0},
+        {2, -1, -7},
+        {6, -1, 5}
+    }};
+
+    EXPECT_EQ(matrix1.minor(1, 0), 25);
+}

@@ -164,3 +164,8 @@ Matrix Matrix::submatrix(int row, int column) const
 
     return result;
 }
+
+double Matrix::minor(int row, int column) const
+{
+    return submatrix(row, column).determinant();
+}
