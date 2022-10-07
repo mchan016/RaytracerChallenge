@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <stdexcept>
+#include <string>
 
 using raytracer::Matrix;
 
@@ -131,6 +132,34 @@ double Matrix::determinant() const
     if (rows() == 2)
     {
         result = m_matrix[0][0] * m_matrix[1][1] - m_matrix[0][1] * m_matrix[1][0];
+    }
+
+    return result;
+}
+
+Matrix Matrix::submatrix(int row, int column) const
+{
+    if (row < 0 || row >= rows() || column < 0 || column >= columns())
+    {
+        std::string msg = "Selected row: " + std::to_string(row) 
+                        + " or column: " + std::to_string(column) 
+                        + " doesn't exist";
+        throw new std::invalid_argument(msg);
+    }
+
+    Matrix result{rows()-1, columns()-1};
+    for (int i = 0, x = 0; i < rows(); i++)
+    {
+        if (i == row) continue;
+        
+        for (int j = 0, y = 0; j < columns(); j++)
+        {
+            if (j == column) continue;
+            result.m_matrix[x][y] = m_matrix[i][j];
+            ++y;
+        }
+
+        ++x;
     }
 
     return result;

@@ -178,3 +178,32 @@ TEST(MatrixTest, matrixDeterminantTest)
 
     EXPECT_EQ(matrix1.determinant(), 17);
 }
+
+TEST(MatrixTest, matrixSubmatrixTest)
+{
+    Matrix matrix1{{
+        {1, 5, 0},
+        {-3, 2, 7},
+        {0, 6, -3}
+    }};
+    Matrix submatrix1{{
+        {-3, 2},
+        {0, 6}
+    }};
+
+    EXPECT_TRUE(matrix1.submatrix(0, 2) == submatrix1);
+
+    Matrix matrix2{{
+        {-6, 1, 1, 6},
+        {-8, 5, 8, 6},
+        {-1, 0, 8, 2},
+        {-7, 1, -1, 1}
+    }};
+    Matrix submatrix2{{
+        {-6, 1, 6},
+        {-8, 8, 6},
+        {-7, -1, 1}
+    }};
+
+    EXPECT_TRUE(matrix2.submatrix(2, 1) == submatrix2);
+}

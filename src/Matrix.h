@@ -30,6 +30,7 @@ namespace raytracer
         Tuple operator*(const Tuple& rhs) const;
         void transpose();
         double determinant() const;
+        Matrix submatrix(int row, int column) const;
     }; // Matrix
 
 
