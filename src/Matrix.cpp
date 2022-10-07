@@ -122,3 +122,16 @@ void Matrix::transpose()
         }
     }
 }
+
+double Matrix::determinant() const
+{
+    double result{};
+
+    // Finding the determinant of 2X2 matrix
+    if (rows() == 2)
+    {
+        result = m_matrix[0][0] * m_matrix[1][1] - m_matrix[0][1] * m_matrix[1][0];
+    }
+
+    return result;
+}

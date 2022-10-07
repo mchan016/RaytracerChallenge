@@ -168,3 +168,13 @@ TEST(MatrixTest, matrixTransposeTest)
     EXPECT_TRUE(matrix1 == matrix2);
     EXPECT_TRUE(identityMatrix == identityMatrix2);
 }
+
+TEST(MatrixTest, matrixDeterminantTest)
+{
+    Matrix matrix1{{
+        {1, 5},
+        {-3, 2}
+    }};
+
+    EXPECT_EQ(matrix1.determinant(), 17);
+}

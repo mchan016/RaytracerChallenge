@@ -29,6 +29,7 @@ namespace raytracer
         Matrix operator*(const Matrix& rhs) const;
         Tuple operator*(const Tuple& rhs) const;
         void transpose();
+        double determinant() const;
     }; // Matrix
 
 
