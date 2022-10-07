@@ -218,3 +218,18 @@ TEST(MatrixTest, matrixMinorTest)
 
     EXPECT_EQ(matrix1.minor(1, 0), 25);
 }
+
+TEST(MatrixTest, matrixCofactorTest)
+{
+    Matrix matrix1{{
+        {3, 5, 0},
+        {2, -1, -7},
+        {6, -1, 5}
+    }};
+
+    ASSERT_EQ(matrix1.minor(0, 0), -12);
+    EXPECT_EQ(matrix1.cofactor(0, 0), -12);
+
+    ASSERT_EQ(matrix1.minor(1, 0), 25);
+    EXPECT_EQ(matrix1.cofactor(1, 0), -25);
+}

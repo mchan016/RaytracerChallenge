@@ -169,3 +169,9 @@ double Matrix::minor(int row, int column) const
 {
     return submatrix(row, column).determinant();
 }
+
+double Matrix::cofactor(int row, int column) const
+{
+    double matrixMinor = minor(row, column);
+    return (row + column) % 2 == 0 ? matrixMinor : matrixMinor * -1;
+}

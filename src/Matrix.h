@@ -32,6 +32,7 @@ namespace raytracer
         double determinant() const;
         Matrix submatrix(int row, int column) const;
         double minor(int row, int column) const;
+        double cofactor(int row, int column) const;
     }; // Matrix
 
 
