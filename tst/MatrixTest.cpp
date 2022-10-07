@@ -233,3 +233,32 @@ TEST(MatrixTest, matrixCofactorTest)
     ASSERT_EQ(matrix1.minor(1, 0), 25);
     EXPECT_EQ(matrix1.cofactor(1, 0), -25);
 }
+
+TEST(MatrixTest, largerMatrixDeterminant)
+{
+    // Calculating the determinant of a 3x3 matrix
+    Matrix matrix1{{
+        {1, 2, 6},
+        {-5, 8, -4},
+        {2, 6, 4}
+    }};
+
+    ASSERT_EQ(matrix1.cofactor(0, 0), 56);
+    ASSERT_EQ(matrix1.cofactor(0, 1), 12);
+    ASSERT_EQ(matrix1.cofactor(0, 2), -46);
+    EXPECT_EQ(matrix1.determinant(), -196);
+
+    // Calculating the determinant of a 4x4 matrix
+    Matrix matrix2{{
+        {-2, -8, 3, 5},
+        {-3, 1, 7, 3},
+        {1, 2, -9, 6},
+        {-6, 7, 7, -9}
+    }};
+
+    ASSERT_EQ(matrix2.cofactor(0, 0), 690);
+    ASSERT_EQ(matrix2.cofactor(0, 1), 447);
+    ASSERT_EQ(matrix2.cofactor(0, 2), 210);
+    ASSERT_EQ(matrix2.cofactor(0, 3), 51);
+    EXPECT_EQ(matrix2.determinant(), -4071);
+}

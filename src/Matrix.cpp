@@ -133,6 +133,13 @@ double Matrix::determinant() const
     {
         result = m_matrix[0][0] * m_matrix[1][1] - m_matrix[0][1] * m_matrix[1][0];
     }
+    else
+    {
+        for (int i = 0; i < columns(); i++)
+        {
+            result += m_matrix[0][i] * cofactor(0, i);
+        }
+    }
 
     return result;
 }
