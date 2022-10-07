@@ -1,5 +1,6 @@
 #include "Matrix.h"
 #include "Tuple.h"
+#include "RaytracerUtils.h"
 
 #include <vector>
 #include <stdexcept>
@@ -128,7 +129,6 @@ double Matrix::determinant() const
 {
     double result{};
 
-    // Finding the determinant of 2X2 matrix
     if (rows() == 2)
     {
         result = m_matrix[0][0] * m_matrix[1][1] - m_matrix[0][1] * m_matrix[1][0];
@@ -181,4 +181,56 @@ double Matrix::cofactor(int row, int column) const
 {
     double matrixMinor = minor(row, column);
     return (row + column) % 2 == 0 ? matrixMinor : matrixMinor * -1;
+}
+
+/**
+ * @brief Inversible if determinant of matrix does not equal 0
+ * 
+ * @return true Determinant is any number that is not 0
+ * @return false Determinant equals 0
+ */
+bool Matrix::inversible() const
+{
+    return inversible(determinant());
+}
+
+/**
+ * @brief Inversible that accepts a determinant number and check whether
+ *          the number fits into the inversibility criteria
+ * 
+ * @param determinant 
+ * @return true 
+ * @return false 
+ */
+bool Matrix::inversible(double determinant) const
+{
+    return !doubleEqual(determinant, 0);
+}
+
+/**
+ * @brief Calculates and returns the inverse matrix
+ * 
+ * @throw An invalid_argument exception if a matrix is not inversible
+ * @return Matrix The inverse matrix of the current matrix, if reversible
+ */
+Matrix Matrix::inverse() const
+{
+    if (!inversible())
+    {
+        throw new std::invalid_argument("Matrix cannot be inversed");
+    }
+
+    Matrix result{rows(), columns()};
+
+    double d = determinant();
+    for (int i = 0; i < rows(); i++)
+    {
+        for (int j = 0; j < columns(); j++)
+        {
+            double c = cofactor(i, j);
+            result.m_matrix[j][i] = c / d;
+        }
+    }
+
+    return result;
 }

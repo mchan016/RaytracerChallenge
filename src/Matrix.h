@@ -2,7 +2,9 @@
 #define RAYTRACER_MATRIX_H
 
 #include "Tuple.h"
+#include "RaytracerUtils.h"
 
+#include <iostream>
 #include <vector>
 
 namespace raytracer
@@ -28,11 +30,15 @@ namespace raytracer
         const std::vector<double>& operator[](int i) const;
         Matrix operator*(const Matrix& rhs) const;
         Tuple operator*(const Tuple& rhs) const;
+
         void transpose();
         double determinant() const;
         Matrix submatrix(int row, int column) const;
         double minor(int row, int column) const;
         double cofactor(int row, int column) const;
+        bool inversible() const;
+        bool inversible(double determinant) const;
+        Matrix inverse() const;
     }; // Matrix
 
 
@@ -47,10 +53,13 @@ namespace raytracer
         bool isEqual = true;
         for (int i = 0; i < lhs.rows(); i++)
         {
-            if (lhs[i] != rhs[i])
+            for (int j = 0; j < lhs.columns(); j++)
             {
-                isEqual = false;
-                break;
+                if (!doubleEqual(lhs[i][j], rhs[i][j]))
+                {
+                    isEqual = false;
+                    break;
+                }
             }
         }
 
@@ -60,6 +69,20 @@ namespace raytracer
     inline bool operator!=(const Matrix& lhs, const Matrix& rhs)
     {
         return !(lhs == rhs);
+    }
+
+    inline std::ostream& operator<<(std::ostream& os, const Matrix& mtrx)
+    {
+        for (int i = 0; i < mtrx.rows(); i++)
+        {
+            for (int j = 0; j < mtrx.columns(); j++)
+            {
+                os << mtrx[i][j] << ' ';
+            }
+            os << '\n';
+        }
+
+        return os;
     }
 } // namespace raytracer
 
