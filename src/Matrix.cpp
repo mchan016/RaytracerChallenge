@@ -46,6 +46,11 @@ const std::vector<double>& Matrix::operator[](int i) const
     return m_matrix[i];
 }
 
+std::vector<double>& Matrix::operator[](int i)
+{
+    return m_matrix[i];
+}
+
 /**
  * @brief Multiplication between two matrices. Calculation is only based on
  * matrices that are 4X4
@@ -162,7 +167,7 @@ Matrix Matrix::submatrix(int row, int column) const
         for (int j = 0, y = 0; j < columns(); j++)
         {
             if (j == column) continue;
-            result.m_matrix[x][y] = m_matrix[i][j];
+            result[x][y] = m_matrix[i][j];
             ++y;
         }
 
@@ -228,9 +233,45 @@ Matrix Matrix::inverse() const
         for (int j = 0; j < columns(); j++)
         {
             double c = cofactor(i, j);
-            result.m_matrix[j][i] = c / d;
+            result[j][i] = c / d;
         }
     }
 
     return result;
+}
+
+////////////////////////////////////
+// FACTORY FUNCTIONS
+////////////////////////////////////
+
+/**
+ * @brief Create an identity matrix that is dimension x dimension in size
+ * 
+ * @param dimension The number of rows and columns of the matrix 
+ * @return Matrix An identity matrix of dimension x dimension
+ */
+Matrix raytracer::identity(int dimension) noexcept
+{
+    Matrix identity{dimension, dimension};
+    int index{0};
+    while (index < dimension)
+    {
+        identity[index][index] = 1;
+        ++index;
+    }
+
+    return identity;
+}
+
+Matrix raytracer::translation(double x, double y, double z) noexcept
+{
+    // Get a 4x4 identity matrix
+    Matrix transMatrix{identity(Matrix::DEFAULT_ROWS)};
+
+    // Add in the translations for x, y, and z
+    transMatrix[0][3] = x;
+    transMatrix[1][3] = y;
+    transMatrix[2][3] = z;
+
+    return transMatrix;
 }

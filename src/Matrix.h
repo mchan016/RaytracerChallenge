@@ -28,6 +28,7 @@ namespace raytracer
         int columns() const;
 
         const std::vector<double>& operator[](int i) const;
+        std::vector<double>& operator[](int i);
         Matrix operator*(const Matrix& rhs) const;
         Tuple operator*(const Tuple& rhs) const;
 
@@ -41,6 +42,12 @@ namespace raytracer
         Matrix inverse() const;
     }; // Matrix
 
+
+    ////////////////////////////////////
+    // FACTORY FUNCTIONS
+    ////////////////////////////////////
+    Matrix identity(int dimension) noexcept;
+    Matrix translation(double x, double y, double z) noexcept;
 
     ////////////////////////////////////
     // OPERATOR OVERLOADS

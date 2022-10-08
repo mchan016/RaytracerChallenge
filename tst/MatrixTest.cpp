@@ -366,3 +366,34 @@ TEST(MatrixTest, matrixInverseProductTest)
     
     EXPECT_TRUE(product * matrix2.inverse() == matrix1);
 }
+
+TEST(MatrixTest, identityMatrixTest)
+{
+    Matrix matrix1{{
+        {1, 0, 0},
+        {0, 1, 0},
+        {0, 0, 1}
+    }};
+
+    Matrix matrix2{{
+        {1, 0, 0, 0},
+        {0, 1, 0, 0},
+        {0, 0, 1, 0},
+        {0, 0, 0, 1}
+    }};
+
+    EXPECT_TRUE(raytracer::identity(3) == matrix1);
+    EXPECT_TRUE(raytracer::identity(4) == matrix2);
+}
+
+TEST(MatrixTest, matrixTranslationTest)
+{
+    Matrix transform{raytracer::translation(5, -3, 2)};
+    Matrix inv{transform.inverse()};
+    auto p{raytracer::point(-3, 4, 5)};
+    auto v{raytracer::vector(-3, 4, 5)};
+
+    EXPECT_TRUE(transform * *p == *raytracer::point(2, 1, 7));
+    EXPECT_TRUE(inv * *p == *raytracer::point(-8, 7, 3));
+    EXPECT_TRUE(transform * *v == *v);
+}
