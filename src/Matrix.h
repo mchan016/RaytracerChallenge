@@ -48,6 +48,7 @@ namespace raytracer
     ////////////////////////////////////
     Matrix identity(int dimension) noexcept;
     Matrix translation(double x, double y, double z) noexcept;
+    Matrix scaling(double x, double y, double z) noexcept;
 
     ////////////////////////////////////
     // OPERATOR OVERLOADS

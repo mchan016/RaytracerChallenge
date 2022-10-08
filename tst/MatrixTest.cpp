@@ -397,3 +397,21 @@ TEST(MatrixTest, matrixTranslationTest)
     EXPECT_TRUE(inv * *p == *raytracer::point(-8, 7, 3));
     EXPECT_TRUE(transform * *v == *v);
 }
+
+TEST(MatrixTest, matrixScalingTest)
+{
+    Matrix transform{raytracer::scaling(2, 3, 4)};
+
+    auto p{raytracer::point(-4, 6, 8)};
+    auto v{raytracer::vector(-4, 6, 8)};
+
+    EXPECT_TRUE(transform * *p == *raytracer::point(-8, 18, 32));
+    EXPECT_TRUE(transform * *v == *raytracer::vector(-8, 18, 32));
+    EXPECT_TRUE(transform.inverse() * *v == *raytracer::vector(-2, 2, 2));
+
+    // Testing Reflection
+    Matrix transform2{raytracer::scaling(-1, 1, 1)};
+    auto p2{raytracer::point(2, 3, 4)};
+
+    EXPECT_TRUE(transform2 * *p2 == *raytracer::point(-2, 3, 4));
+}

@@ -275,3 +275,16 @@ Matrix raytracer::translation(double x, double y, double z) noexcept
 
     return transMatrix;
 }
+
+Matrix raytracer::scaling(double x, double y, double z) noexcept
+{
+    // Get a 4x4 identity matrix
+    Matrix scaleMatrix{identity(Matrix::DEFAULT_ROWS)};
+
+    // Add in the scalings for x, y, and z
+    scaleMatrix[0][0] = x;
+    scaleMatrix[1][1] = y;
+    scaleMatrix[2][2] = z;
+
+    return scaleMatrix;
+}
