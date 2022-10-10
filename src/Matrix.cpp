@@ -2,6 +2,7 @@
 #include "Tuple.h"
 #include "RaytracerUtils.h"
 
+#include <cmath>
 #include <vector>
 #include <stdexcept>
 #include <string>
@@ -287,4 +288,46 @@ Matrix raytracer::scaling(double x, double y, double z) noexcept
     scaleMatrix[2][2] = z;
 
     return scaleMatrix;
+}
+
+Matrix raytracer::rotationX(double rad) noexcept
+{
+    // Get a 4x4 identity matrix
+    Matrix rotationMatrix{identity(Matrix::DEFAULT_ROWS)};
+
+    // Add in the rotations for x-axis
+    rotationMatrix[1][1] = std::cos(rad);
+    rotationMatrix[1][2] = -1 * std::sin(rad);
+    rotationMatrix[2][1] = std::sin(rad);
+    rotationMatrix[2][2] = std::cos(rad);
+
+    return rotationMatrix;
+}
+
+Matrix raytracer::rotationY(double rad) noexcept
+{
+    // Get a 4x4 identity matrix
+    Matrix rotationMatrix{identity(Matrix::DEFAULT_ROWS)};
+
+    // Add in the rotations for y-axis
+    rotationMatrix[0][0] = std::cos(rad);
+    rotationMatrix[0][2] = std::sin(rad);
+    rotationMatrix[2][0] = -1 * std::sin(rad);
+    rotationMatrix[2][2] = std::cos(rad);
+
+    return rotationMatrix;
+}
+
+Matrix raytracer::rotationZ(double rad) noexcept
+{
+    // Get a 4x4 identity matrix
+    Matrix rotationMatrix{identity(Matrix::DEFAULT_ROWS)};
+
+    // Add in the rotations for z-axis
+    rotationMatrix[0][0] = std::cos(rad);
+    rotationMatrix[0][1] = -1 * std::sin(rad);
+    rotationMatrix[1][0] = std::sin(rad);
+    rotationMatrix[1][1] = std::cos(rad);
+
+    return rotationMatrix;
 }

@@ -6,6 +6,7 @@
 using raytracer::Matrix;
 using raytracer::Tuple;
 using raytracer::TupleType;
+using raytracer::PI;
 
 TEST(MatrixTest, initMatrixTest)
 {
@@ -414,4 +415,36 @@ TEST(MatrixTest, matrixScalingTest)
     auto p2{raytracer::point(2, 3, 4)};
 
     EXPECT_TRUE(transform2 * *p2 == *raytracer::point(-2, 3, 4));
+}
+
+TEST(MatrixTest, matrixRotationXTest)
+{
+    auto p{raytracer::point(0, 1, 0)};
+    Matrix halfQtr{raytracer::rotationX(PI / 4)};
+    Matrix fullQtr{raytracer::rotationX(PI / 2)};
+
+    EXPECT_TRUE(halfQtr * *p == *raytracer::point(0, std::sqrt(2) / 2, std::sqrt(2) / 2));
+    EXPECT_TRUE(fullQtr * *p == *raytracer::point(0, 0, 1));
+    EXPECT_TRUE(halfQtr.inverse() * *p == *raytracer::point(0, std::sqrt(2) / 2, -1 * std::sqrt(2) / 2));
+}
+
+TEST(MatrixTest, matrixRotationYTest)
+{
+    auto p{raytracer::point(0, 0, 1)};
+    Matrix halfQtr{raytracer::rotationY(PI / 4)};
+    Matrix fullQtr{raytracer::rotationY(PI / 2)};
+
+    EXPECT_TRUE(halfQtr * *p == *raytracer::point(std::sqrt(2) / 2, 0, std::sqrt(2) / 2));
+    EXPECT_TRUE(fullQtr * *p == *raytracer::point(1, 0, 0));
+}
+
+TEST(MatrixTest, matrixRotationZTest)
+{
+    auto p{raytracer::point(0, 1, 0)};
+    Matrix halfQtr{raytracer::rotationZ(PI / 4)};
+    Matrix fullQtr{raytracer::rotationZ(PI / 2)};
+
+    double sqrtTwoDTwo = std::sqrt(2) / 2;
+    EXPECT_TRUE(halfQtr * *p == *raytracer::point(-1 * sqrtTwoDTwo, sqrtTwoDTwo, 0));
+    EXPECT_TRUE(fullQtr * *p == *raytracer::point(-1, 0, 0));
 }

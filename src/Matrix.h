@@ -49,6 +49,9 @@ namespace raytracer
     Matrix identity(int dimension) noexcept;
     Matrix translation(double x, double y, double z) noexcept;
     Matrix scaling(double x, double y, double z) noexcept;
+    Matrix rotationX(double rad) noexcept;
+    Matrix rotationY(double rad) noexcept;
+    Matrix rotationZ(double rad) noexcept;
 
     ////////////////////////////////////
     // OPERATOR OVERLOADS
