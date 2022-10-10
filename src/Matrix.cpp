@@ -331,3 +331,31 @@ Matrix raytracer::rotationZ(double rad) noexcept
 
     return rotationMatrix;
 }
+
+/**
+ * @brief Creates a transformation matrix that changes the positions of x, y, z
+ *      of the tuple it applies to in proportion to the other two x, y, z values
+ * 
+ * @param Xy - Changes in x as proportion to y
+ * @param Xz - Changes in x as proportion to z
+ * @param Yx - Changes in y as proportion to x
+ * @param Yz - Changes in y as proportion to z
+ * @param Zx - Changes in z as proportion to x
+ * @param Zy - Changes in z as proportion to y
+ * @return Matrix - Shearing matrix
+ */
+Matrix raytracer::shearing(double Xy, double Xz, double Yx, double Yz, double Zx, double Zy) noexcept
+{
+    // Get a 4x4 identity matrix
+    Matrix shearingMatrix{identity(Matrix::DEFAULT_ROWS)};
+
+    // Add in the shearings for x, y, z in proportion to the other two components
+    shearingMatrix[0][1] = Xy;
+    shearingMatrix[0][2] = Xz;
+    shearingMatrix[1][0] = Yx;
+    shearingMatrix[1][2] = Yz;
+    shearingMatrix[2][0] = Zx;
+    shearingMatrix[2][1] = Zy;
+
+    return shearingMatrix;
+}

@@ -448,3 +448,42 @@ TEST(MatrixTest, matrixRotationZTest)
     EXPECT_TRUE(halfQtr * *p == *raytracer::point(-1 * sqrtTwoDTwo, sqrtTwoDTwo, 0));
     EXPECT_TRUE(fullQtr * *p == *raytracer::point(-1, 0, 0));
 }
+
+TEST(MatrixTest, matrixShearingTest)
+{
+    // Test shearing for X in relation to Y
+    Matrix xyShearing{raytracer::shearing(1, 0, 0, 0, 0, 0)};
+    auto p1{raytracer::point(2, 3, 4)};
+
+    EXPECT_TRUE(xyShearing * *p1 == *raytracer::point(5, 3, 4));
+
+    // Test shearing for X in relation to Z
+    Matrix xzShearing{raytracer::shearing(0, 1, 0, 0, 0, 0)};
+    auto p2{raytracer::point(2, 3, 4)};
+
+    EXPECT_TRUE(xzShearing * *p2 == *raytracer::point(6, 3, 4));
+
+    // Test shearing for Y in relation to X
+    Matrix yxShearing{raytracer::shearing(0, 0, 1, 0, 0, 0)};
+    auto p3{raytracer::point(2, 3, 4)};
+
+    EXPECT_TRUE(yxShearing * *p3 == *raytracer::point(2, 5, 4));
+
+    // Test shearing for Y in relation to Z
+    Matrix yzshearing{raytracer::shearing(0, 0, 0, 1, 0, 0)};
+    auto p4{raytracer::point(2, 3, 4)};
+
+    EXPECT_TRUE(yzshearing * *p4 == *raytracer::point(2, 7, 4));
+
+    // Test shearing for Z in relation to X
+    Matrix zxShearing{raytracer::shearing(0, 0, 0, 0, 1, 0)};
+    auto p5{raytracer::point(2, 3, 4)};
+
+    EXPECT_TRUE(zxShearing * *p5 == *raytracer::point(2, 3, 6));
+
+    // Test shearing for Z in relation to Y
+    Matrix zyShearing{raytracer::shearing(0, 0, 0, 0, 0, 1)};
+    auto p6{raytracer::point(2, 3, 4)};
+
+    EXPECT_TRUE(zyShearing * *p6 == *raytracer::point(2, 3, 7));
+}

@@ -44,7 +44,7 @@ namespace raytracer
 
 
     ////////////////////////////////////
-    // FACTORY FUNCTIONS
+    // TRANSFORMATION FUNCTIONS
     ////////////////////////////////////
     Matrix identity(int dimension) noexcept;
     Matrix translation(double x, double y, double z) noexcept;
@@ -52,6 +52,7 @@ namespace raytracer
     Matrix rotationX(double rad) noexcept;
     Matrix rotationY(double rad) noexcept;
     Matrix rotationZ(double rad) noexcept;
+    Matrix shearing(double Xy, double Xz, double Yx, double Yz, double Zx, double Zy) noexcept;
 
     ////////////////////////////////////
     // OPERATOR OVERLOADS
