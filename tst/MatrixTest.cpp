@@ -487,3 +487,28 @@ TEST(MatrixTest, matrixShearingTest)
 
     EXPECT_TRUE(zyShearing * *p6 == *raytracer::point(2, 3, 7));
 }
+
+TEST(MatrixTest, transformChainingTest)
+{
+    // Individual trnasformations are applied in sequence
+    auto p1{raytracer::point(1, 0, 1)};
+    auto A{raytracer::rotationX(PI / 2)};
+    auto B{raytracer::scaling(5, 5, 5)};
+    auto C{raytracer::translation(10, 5, 7)};
+
+    // Apply rotation first
+    auto p2{A * *p1};
+    EXPECT_TRUE(p2 == *raytracer::point(1, -1, 0));
+
+    // Then apply scaling
+    auto p3{B * p2};
+    EXPECT_TRUE(p3 == *raytracer::point(5, -5, 0));
+
+    // Then apply translation
+    auto p4{C * p3};
+    EXPECT_TRUE(p4 == *raytracer::point(15, 0, 7));
+
+    // Chained transformations must be applied in reverse order
+    auto culmination{C * B * A};
+    EXPECT_TRUE(culmination * *p1 == *raytracer::point(15, 0, 7));
+}
