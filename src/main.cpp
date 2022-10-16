@@ -41,10 +41,10 @@ int main()
 
     std::cout << "radius: " << std::to_string(radius) << '\n';
     std::cout << "mid canvas: " << midCanvas << '\n';
-    canvas.pixel(midCanvas.x(), midCanvas.y(), *raytracer::color(1, 1, 1));
-    canvas.pixel(midCanvas.x()+1, midCanvas.y(), *raytracer::color(1, 1, 1));
-    canvas.pixel(midCanvas.x(), midCanvas.y()+1, *raytracer::color(1, 1, 1));
-    canvas.pixel(midCanvas.x()+1, midCanvas.y()+1, *raytracer::color(1, 1, 1));
+    canvas.pixel(midCanvas.x(), midCanvas.y(), raytracer::color(1, 1, 1));
+    canvas.pixel(midCanvas.x()+1, midCanvas.y(), raytracer::color(1, 1, 1));
+    canvas.pixel(midCanvas.x(), midCanvas.y()+1, raytracer::color(1, 1, 1));
+    canvas.pixel(midCanvas.x()+1, midCanvas.y()+1, raytracer::color(1, 1, 1));
     for (int i = 1; i <= 12; i++) {
         auto rotateNext{raytracer::rotationZ(i * PI / 6)};
         auto currPoint{rotateNext * twelveOClock};
@@ -58,10 +58,10 @@ int main()
 
         int col{static_cast<int>(currPoint.x())};
         int row{static_cast<int>(currPoint.y())};
-        canvas.pixel(col, row, *yellow);
-        canvas.pixel(col+1, row, *yellow);
-        canvas.pixel(col, row+1, *yellow);
-        canvas.pixel(col+1, row+1, *yellow);
+        canvas.pixel(col, row, yellow);
+        canvas.pixel(col+1, row, yellow);
+        canvas.pixel(col, row+1, yellow);
+        canvas.pixel(col+1, row+1, yellow);
     }
 
     canvas.ppmToFile();

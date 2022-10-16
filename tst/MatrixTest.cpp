@@ -394,9 +394,9 @@ TEST(MatrixTest, matrixTranslationTest)
     auto p{raytracer::point(-3, 4, 5)};
     auto v{raytracer::vector(-3, 4, 5)};
 
-    EXPECT_TRUE(transform * *p == *raytracer::point(2, 1, 7));
-    EXPECT_TRUE(inv * *p == *raytracer::point(-8, 7, 3));
-    EXPECT_TRUE(transform * *v == *v);
+    EXPECT_TRUE(transform * p == raytracer::point(2, 1, 7));
+    EXPECT_TRUE(inv * p == raytracer::point(-8, 7, 3));
+    EXPECT_TRUE(transform * v == v);
 }
 
 TEST(MatrixTest, matrixScalingTest)
@@ -406,15 +406,15 @@ TEST(MatrixTest, matrixScalingTest)
     auto p{raytracer::point(-4, 6, 8)};
     auto v{raytracer::vector(-4, 6, 8)};
 
-    EXPECT_TRUE(transform * *p == *raytracer::point(-8, 18, 32));
-    EXPECT_TRUE(transform * *v == *raytracer::vector(-8, 18, 32));
-    EXPECT_TRUE(transform.inverse() * *v == *raytracer::vector(-2, 2, 2));
+    EXPECT_TRUE(transform * p == raytracer::point(-8, 18, 32));
+    EXPECT_TRUE(transform * v == raytracer::vector(-8, 18, 32));
+    EXPECT_TRUE(transform.inverse() * v == raytracer::vector(-2, 2, 2));
 
     // Testing Reflection
     Matrix transform2{raytracer::scaling(-1, 1, 1)};
     auto p2{raytracer::point(2, 3, 4)};
 
-    EXPECT_TRUE(transform2 * *p2 == *raytracer::point(-2, 3, 4));
+    EXPECT_TRUE(transform2 * p2 == raytracer::point(-2, 3, 4));
 }
 
 TEST(MatrixTest, matrixRotationXTest)
@@ -423,9 +423,9 @@ TEST(MatrixTest, matrixRotationXTest)
     Matrix halfQtr{raytracer::rotationX(PI / 4)};
     Matrix fullQtr{raytracer::rotationX(PI / 2)};
 
-    EXPECT_TRUE(halfQtr * *p == *raytracer::point(0, std::sqrt(2) / 2, std::sqrt(2) / 2));
-    EXPECT_TRUE(fullQtr * *p == *raytracer::point(0, 0, 1));
-    EXPECT_TRUE(halfQtr.inverse() * *p == *raytracer::point(0, std::sqrt(2) / 2, -1 * std::sqrt(2) / 2));
+    EXPECT_TRUE(halfQtr * p == raytracer::point(0, std::sqrt(2) / 2, std::sqrt(2) / 2));
+    EXPECT_TRUE(fullQtr * p == raytracer::point(0, 0, 1));
+    EXPECT_TRUE(halfQtr.inverse() * p == raytracer::point(0, std::sqrt(2) / 2, -1 * std::sqrt(2) / 2));
 }
 
 TEST(MatrixTest, matrixRotationYTest)
@@ -434,8 +434,8 @@ TEST(MatrixTest, matrixRotationYTest)
     Matrix halfQtr{raytracer::rotationY(PI / 4)};
     Matrix fullQtr{raytracer::rotationY(PI / 2)};
 
-    EXPECT_TRUE(halfQtr * *p == *raytracer::point(std::sqrt(2) / 2, 0, std::sqrt(2) / 2));
-    EXPECT_TRUE(fullQtr * *p == *raytracer::point(1, 0, 0));
+    EXPECT_TRUE(halfQtr * p == raytracer::point(std::sqrt(2) / 2, 0, std::sqrt(2) / 2));
+    EXPECT_TRUE(fullQtr * p == raytracer::point(1, 0, 0));
 }
 
 TEST(MatrixTest, matrixRotationZTest)
@@ -445,8 +445,8 @@ TEST(MatrixTest, matrixRotationZTest)
     Matrix fullQtr{raytracer::rotationZ(PI / 2)};
 
     double sqrtTwoDTwo = std::sqrt(2) / 2;
-    EXPECT_TRUE(halfQtr * *p == *raytracer::point(-1 * sqrtTwoDTwo, sqrtTwoDTwo, 0));
-    EXPECT_TRUE(fullQtr * *p == *raytracer::point(-1, 0, 0));
+    EXPECT_TRUE(halfQtr * p == raytracer::point(-1 * sqrtTwoDTwo, sqrtTwoDTwo, 0));
+    EXPECT_TRUE(fullQtr * p == raytracer::point(-1, 0, 0));
 }
 
 TEST(MatrixTest, matrixShearingTest)
@@ -455,37 +455,37 @@ TEST(MatrixTest, matrixShearingTest)
     Matrix xyShearing{raytracer::shearing(1, 0, 0, 0, 0, 0)};
     auto p1{raytracer::point(2, 3, 4)};
 
-    EXPECT_TRUE(xyShearing * *p1 == *raytracer::point(5, 3, 4));
+    EXPECT_TRUE(xyShearing * p1 == raytracer::point(5, 3, 4));
 
     // Test shearing for X in relation to Z
     Matrix xzShearing{raytracer::shearing(0, 1, 0, 0, 0, 0)};
     auto p2{raytracer::point(2, 3, 4)};
 
-    EXPECT_TRUE(xzShearing * *p2 == *raytracer::point(6, 3, 4));
+    EXPECT_TRUE(xzShearing * p2 == raytracer::point(6, 3, 4));
 
     // Test shearing for Y in relation to X
     Matrix yxShearing{raytracer::shearing(0, 0, 1, 0, 0, 0)};
     auto p3{raytracer::point(2, 3, 4)};
 
-    EXPECT_TRUE(yxShearing * *p3 == *raytracer::point(2, 5, 4));
+    EXPECT_TRUE(yxShearing * p3 == raytracer::point(2, 5, 4));
 
     // Test shearing for Y in relation to Z
     Matrix yzshearing{raytracer::shearing(0, 0, 0, 1, 0, 0)};
     auto p4{raytracer::point(2, 3, 4)};
 
-    EXPECT_TRUE(yzshearing * *p4 == *raytracer::point(2, 7, 4));
+    EXPECT_TRUE(yzshearing * p4 == raytracer::point(2, 7, 4));
 
     // Test shearing for Z in relation to X
     Matrix zxShearing{raytracer::shearing(0, 0, 0, 0, 1, 0)};
     auto p5{raytracer::point(2, 3, 4)};
 
-    EXPECT_TRUE(zxShearing * *p5 == *raytracer::point(2, 3, 6));
+    EXPECT_TRUE(zxShearing * p5 == raytracer::point(2, 3, 6));
 
     // Test shearing for Z in relation to Y
     Matrix zyShearing{raytracer::shearing(0, 0, 0, 0, 0, 1)};
     auto p6{raytracer::point(2, 3, 4)};
 
-    EXPECT_TRUE(zyShearing * *p6 == *raytracer::point(2, 3, 7));
+    EXPECT_TRUE(zyShearing * p6 == raytracer::point(2, 3, 7));
 }
 
 TEST(MatrixTest, transformChainingTest)
@@ -497,18 +497,18 @@ TEST(MatrixTest, transformChainingTest)
     auto C{raytracer::translation(10, 5, 7)};
 
     // Apply rotation first
-    auto p2{A * *p1};
-    EXPECT_TRUE(p2 == *raytracer::point(1, -1, 0));
+    auto p2{A * p1};
+    EXPECT_TRUE(p2 == raytracer::point(1, -1, 0));
 
     // Then apply scaling
     auto p3{B * p2};
-    EXPECT_TRUE(p3 == *raytracer::point(5, -5, 0));
+    EXPECT_TRUE(p3 == raytracer::point(5, -5, 0));
 
     // Then apply translation
     auto p4{C * p3};
-    EXPECT_TRUE(p4 == *raytracer::point(15, 0, 7));
+    EXPECT_TRUE(p4 == raytracer::point(15, 0, 7));
 
     // Chained transformations must be applied in reverse order
     auto culmination{C * B * A};
-    EXPECT_TRUE(culmination * *p1 == *raytracer::point(15, 0, 7));
+    EXPECT_TRUE(culmination * p1 == raytracer::point(15, 0, 7));
 }

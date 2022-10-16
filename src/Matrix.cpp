@@ -8,6 +8,8 @@
 #include <string>
 
 using raytracer::Matrix;
+using raytracer::Tuple;
+using raytracer::TupleType;
 
 Matrix::Matrix()
     : m_matrix(DEFAULT_ROWS, std::vector<double>(DEFAULT_COLUMNS, 0.0))
@@ -86,9 +88,9 @@ Matrix Matrix::operator*(const Matrix& rhs) const
  * 
  * @param rhs 
  * @throw Throws an invalid argument exception if matrix dimension is not 4X4
- * @return raytracer::Tuple 
+ * @return Tuple 
  */
-raytracer::Tuple Matrix::operator*(const raytracer::Tuple& rhs) const
+Tuple Matrix::operator*(const Tuple& rhs) const
 {
     if (rows() != DEFAULT_ROWS || columns() != DEFAULT_COLUMNS)
     {
