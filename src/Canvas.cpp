@@ -7,11 +7,14 @@
 #include <stdexcept>
 #include <string>
 
-raytracer::Canvas::Canvas()
+using raytracer::Canvas;
+using raytracer::Tuple;
+
+Canvas::Canvas()
     : m_canvas{}
 {}
 
-raytracer::Canvas::Canvas(int width, int height)
+Canvas::Canvas(int width, int height)
     : m_canvas{}
 {
     for (int i = 0; i < height; i++)
@@ -19,23 +22,23 @@ raytracer::Canvas::Canvas(int width, int height)
         std::vector<Tuple> v{};
         for (int j = 0; j < width; j++)
         {
-            v.push_back(raytracer::Tuple{0, 0, 0, TupleType::COLOR});
+            v.push_back(Tuple{0, 0, 0, TupleType::COLOR});
         }
         m_canvas.push_back(v);
     }
 }
 
-int raytracer::Canvas::width() const
+int Canvas::width() const
 {
     return height() == 0 ? 0 : static_cast<int>(m_canvas.at(0).size());
 }
 
-int raytracer::Canvas::height() const
+int Canvas::height() const
 {
     return static_cast<int>(m_canvas.size());
 }
 
-const std::vector<std::vector<raytracer::Tuple>>& raytracer::Canvas::canvas() const
+const std::vector<std::vector<Tuple>>& Canvas::canvas() const
 {
     return m_canvas;
 }
@@ -48,7 +51,7 @@ const std::vector<std::vector<raytracer::Tuple>>& raytracer::Canvas::canvas() co
  * @param y - The y-coordinate of the canvas.  Corresponds to the row position of the x-th column
  * @return const raytracer::Tuple& - The color pixel at [x, y]
  */
-const raytracer::Tuple& raytracer::Canvas::pixel(int x, int y) const
+const Tuple& Canvas::pixel(int x, int y) const
 {
     // Verify within range
     if (pixelOutOfBounds(x, y))
@@ -69,7 +72,7 @@ const raytracer::Tuple& raytracer::Canvas::pixel(int x, int y) const
  * @return true - Color pixel was successfully set
  * @return false - Color pixel was not successfully set, which could be due to out of bounds or Tuple not a color
  */
-bool raytracer::Canvas::pixel(int x, int y, const raytracer::Tuple& color)
+bool Canvas::pixel(int x, int y, const Tuple& color)
 {
     if (pixelOutOfBounds(x, y) || color.type() != TupleType::COLOR)
         return false;
@@ -78,7 +81,7 @@ bool raytracer::Canvas::pixel(int x, int y, const raytracer::Tuple& color)
     return true;
 }
 
-std::string raytracer::Canvas::canvasToPPM() const
+std::string Canvas::canvasToPPM() const
 {
     // Generate Header
     std::string ppm{};
@@ -105,7 +108,7 @@ std::string raytracer::Canvas::canvasToPPM() const
  * a file
  * 
  */
-void raytracer::Canvas::ppmToFile() const
+void Canvas::ppmToFile() const
 {
     std::ofstream ppmFile("image.ppm");
     ppmFile << canvasToPPM();
@@ -121,7 +124,7 @@ void raytracer::Canvas::ppmToFile() const
  * @return true Pixel is out of bounds
  * @return false Pixel is not out of bounds
  */
-bool raytracer::Canvas::pixelOutOfBounds(int x, int y) const
+bool Canvas::pixelOutOfBounds(int x, int y) const
 {
     return y >= height() 
         || y < 0
@@ -129,7 +132,7 @@ bool raytracer::Canvas::pixelOutOfBounds(int x, int y) const
         || x < 0;
 }
 
-int raytracer::Canvas::clipPixelVal(double pixelVal) const
+int Canvas::clipPixelVal(double pixelVal) const
 {
     double scale = static_cast<double>(COLOR_SCALE);
     pixelVal *= scale;

@@ -15,7 +15,7 @@ namespace raytracer
 
     public:
         Ray();
-        Ray(std::unique_ptr<Tuple> origin, std::unique_ptr<Tuple> direction);
+        Ray(Tuple origin, Tuple direction);
 
         Tuple origin() const;
         Tuple direction() const;

@@ -3,7 +3,6 @@
 
 #include "RaytracerUtils.h"
 
-#include <memory>
 #include <iostream>
 
 namespace raytracer
@@ -32,21 +31,21 @@ namespace raytracer
         double z() const;
         TupleType type() const;
 
-        std::unique_ptr<Tuple> operator-() const;
-        std::unique_ptr<Tuple> operator*(const double multiplier) const;
-        std::unique_ptr<Tuple> operator*(const Tuple& rhs) const;
-        std::unique_ptr<Tuple> operator/(const double divisor) const;
+        Tuple operator-() const;
+        Tuple operator*(const double multiplier) const;
+        Tuple operator*(const Tuple& rhs) const;
+        Tuple operator/(const double divisor) const;
 
         double magnitude() const;
-        std::unique_ptr<Tuple> normalize() const;
+        Tuple normalize() const;
     };
 
     ////////////////////////////////////
     // FACTORY FUNCTIONS
     ////////////////////////////////////
-    std::unique_ptr<Tuple> point(double x, double y, double z);
-    std::unique_ptr<Tuple> vector(double x, double y, double z);
-    std::unique_ptr<Tuple> color(double x, double y, double z);
+    Tuple point(double x, double y, double z);
+    Tuple vector(double x, double y, double z);
+    Tuple color(double x, double y, double z);
 
     ////////////////////////////////////
     // OPERATOR OVERLOADS
@@ -65,10 +64,10 @@ namespace raytracer
      * 
      * @param lhs 
      * @param rhs 
-     * @return std::unique_ptr<Tuple> - Returns a nullptr if the tuples could not
+     * @return Tuple - Returns a default Tuple if the tuples could not
      *                                  be added together
      */
-    inline std::unique_ptr<Tuple> operator+(const Tuple& lhs, const Tuple& rhs)
+    inline Tuple operator+(const Tuple& lhs, const Tuple& rhs)
     {
         auto lhsType = lhs.type();
         auto rhsType = rhs.type();
@@ -92,10 +91,10 @@ namespace raytracer
             return color(x, y, z);
         }
 
-        return nullptr;
+        return Tuple{};
     }
 
-    inline std::unique_ptr<Tuple> operator-(const Tuple& lhs, const Tuple& rhs)
+    inline Tuple operator-(const Tuple& lhs, const Tuple& rhs)
     {
         auto lhsType = lhs.type();
         auto rhsType = rhs.type();
@@ -120,10 +119,10 @@ namespace raytracer
             return color(x, y, z);
         }
 
-        return nullptr;
+        return Tuple{};
     }
 
-    inline std::unique_ptr<Tuple> operator*(const double multiplier, const Tuple& rhs)
+    inline Tuple operator*(const double multiplier, const Tuple& rhs)
     {
         return rhs * multiplier;
     }
@@ -141,7 +140,7 @@ namespace raytracer
     // RELATED OPERATIONS
     ////////////////////////////////////
     double dot(const Tuple& t1, const Tuple& t2);
-    std::unique_ptr<Tuple> cross(const Tuple& t1, const Tuple& t2);
+    Tuple cross(const Tuple& t1, const Tuple& t2);
 } // namespace raytracer
 
 #endif // RAYTRACER_TUPLE_H
