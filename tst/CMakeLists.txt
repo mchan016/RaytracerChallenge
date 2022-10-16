@@ -5,6 +5,7 @@ add_executable(${BINARY}
     TupleTest.cpp
     CanvasTest.cpp
     MatrixTest.cpp
+    RayTest.cpp
 )
 
 add_test(NAME ${BINARY} COMMAND ${BINARY})

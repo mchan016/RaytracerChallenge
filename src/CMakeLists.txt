@@ -6,6 +6,7 @@ add_executable(${BINARY}_run
     RaytracerUtils.h RaytracerUtils.cpp
     Canvas.h Canvas.cpp
     Matrix.h Matrix.cpp
+    Ray.h Ray.cpp
 )
 
 add_library(${BINARY}_lib
@@ -14,4 +15,5 @@ add_library(${BINARY}_lib
     RaytracerUtils.h RaytracerUtils.cpp
     Canvas.h Canvas.cpp
     Matrix.h Matrix.cpp
+    Ray.h Ray.cpp
 )
