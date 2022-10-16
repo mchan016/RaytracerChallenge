@@ -4,6 +4,7 @@
 #include "RaytracerUtils.h"
 
 #include <memory>
+#include <iostream>
 
 namespace raytracer
 {
@@ -125,6 +126,15 @@ namespace raytracer
     inline std::unique_ptr<Tuple> operator*(const double multiplier, const Tuple& rhs)
     {
         return rhs * multiplier;
+    }
+
+    inline std::ostream& operator<<(std::ostream& os, const Tuple& tp)
+    {
+        os << "x: " << std::to_string(tp.x()) << " | ";
+        os << "y: " << std::to_string(tp.y()) << " | ";
+        os << "z: " << std::to_string(tp.z()) << " | ";
+
+        return os;
     }
 
     ////////////////////////////////////
