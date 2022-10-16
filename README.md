@@ -11,3 +11,9 @@ This project instance is implemented using **C++** and tested with [Google Test]
 These are the minimum versions of **C++** and **CMake** needed to build the project
 * C++ 14
 * CMake - Version 3.14
+
+## TODO - Add build steps
+
+## TODO - Add explanation of results generated
+
+## TODO - Add descriptions of each chapter's results
