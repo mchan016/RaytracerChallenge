@@ -25,6 +25,8 @@ namespace raytracer
     public:
         Tuple() = default;
         Tuple(double x, double y, double z, TupleType type);
+        Tuple(const Tuple& other);
+        Tuple& operator=(const Tuple& other);
 
         double x() const;
         double y() const;

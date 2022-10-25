@@ -9,6 +9,20 @@ Tuple::Tuple(double x, double y, double z, TupleType type)
     : m_x{x}, m_y{y}, m_z{z}, m_type{type}
 {}
 
+Tuple::Tuple(const Tuple& other)
+    : m_x{other.m_x}, m_y{other.m_y}, m_z{other.m_z}, m_type{other.m_type}
+{}
+
+Tuple& Tuple::operator=(const Tuple& other)
+{
+    m_x = other.m_x;
+    m_y = other.m_y;
+    m_z = other.m_z;
+    m_type = other.m_type;
+
+    return *this;
+}
+
 double Tuple::x() const
 {
     return m_x;
